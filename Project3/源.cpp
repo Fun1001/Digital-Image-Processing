@@ -5,6 +5,10 @@ using namespace cv;
 int main()
 {
 	cv::Mat srcMat = imread("E:\\1.jpg");
+	cv::Mat shallowMat;
+	cv::Mat deepMat;
+	shallowMat = srcMat;
+	srcMat.copyTo(deepMat);
 	int height = srcMat.rows;
 	int width = srcMat.cols;
 	uchar threshold = 100;
@@ -26,9 +30,8 @@ int main()
 			srcMat.at<Vec3b>(j, i)[2] = average;
 		}
 	}
-	imshow("test1", srcMat);
-	cv::Mat srcMat1 = imread("E:\\1.jpg", 0);
-	imshow("test2", srcMat1);
+	imshow("shallow", shallowMat);
+	imshow("deep", deepMat);
 	waitKey(0);
 	return 0;
 }
