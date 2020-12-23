@@ -1,12 +1,30 @@
 #include<opencv2/opencv.hpp>
 #include<iostream>
-#include<math.h>
-#include <vector>
 
 using namespace cv;
 using namespace std;
-//练习1	
-void myharris(Mat& src, int nX, int nY, float* hist);
+
+void myharris(Mat& gray, int nX, int nY, float* ref_hist)
+{
+	Mat gx, gy;
+	Mat mag, angle;
+	cv::Sobel(gray, gx, CV_32F, 1, 0, 1);
+	cv::Sobel(gray, gy, CV_32F, 0, 1, 1);
+	cartToPolar(gx, gy, mag, angle, true);
+
+	int c = 0;
+	//遍历所有
+	for (int i = 0; i < nY; i++) {
+		for (int j = 0; j < nX; j++) {
+			for (int m = 0; m < 16; m++) {
+				for (int n = 0; n < 16; n++) {
+					int k = (int)(angle.at<float>(i * 16 + m, j * 16 + n) / 45);//量化
+					ref_hist[(i * nX + j) * 8 + k] += mag.at<float>(i * 16 + m, j * 16 + n);//累加梯度
+				}
+			}
+		}
+	}
+}
 
 int main() 
 {
@@ -39,7 +57,7 @@ int main()
 				float* compare_hist = new float[bins];
 				memset(compare_hist, 0, sizeof(float) * bins);
 
-				myharris(comp, nX, nY, compare_hist);//hog
+				myharris(comp, nX, nY, compare_hist);//HOG
 
 				float distance = 0;
 				for (int k = 0; k < bins; k++)

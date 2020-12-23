@@ -41,7 +41,6 @@ int main()
 	{
 		capvideo >> frame;
 
-		
 		//Ä£°åÆ¥ÅäÖ÷º¯Êı
 		int match_method = 0;
 		matchTemplate(frame, refMat, resultMat, match_method);
