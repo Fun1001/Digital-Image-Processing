@@ -5,7 +5,7 @@ using namespace cv;
 int main() 
 {
 	VideoCapture cap;
-	cap.open(0);
+	cap.open("E:\\dragon.mp4");
 
 	if (!cap.isOpened())
 	{
