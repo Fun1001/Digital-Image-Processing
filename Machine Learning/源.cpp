@@ -16,7 +16,7 @@ int createMaskByKmeans(cv::Mat src, cv::Mat& mask);
 //	}
 //	return capVideo;
 //}
-
+//第二题
 void segColor()
 {
 	Mat src = imread("E:\\movie.jpg");
@@ -30,7 +30,7 @@ void segColor()
 	waitKey(0);
 
 }
-
+//第一题
 //int kMeansDemo()
 //{
 //	const int MAX_CLUSTERS = 5;
